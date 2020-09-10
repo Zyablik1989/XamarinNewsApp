@@ -111,7 +111,7 @@ namespace NewsApp.Managers
 
             //Connection string
             restClient.BaseUrl = new Uri(BaseUrl + "/" + routeString);
-
+            restClient.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
             //Universal headers
             //restRequest.AddHeader("Authorization", "Basic " + TokenForAPI);
             restRequest.AddHeader("User_Agent", "News Application");

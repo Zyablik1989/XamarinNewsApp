@@ -22,13 +22,13 @@ namespace NewsApp.Views
                 eventSubscribed = true;
                 viewModel.APIerror += async () =>
                 {
-                    await DisplayAlert("Error occured!",
+                    await DisplayAlert("An error occured!",
                         "Cannot retrieve data from API." + Environment.NewLine + "Getting data from Json-backup",
                         "OK");
                 };
                 viewModel.ErrorRetrieving += async () =>
                 {
-                    await DisplayAlert("Error occured!",
+                    await DisplayAlert("An error occured!",
                         "Cannot retrieve news data." + Environment.NewLine + "Restart app or inform developers.",
                         "OK");
                 };

@@ -42,17 +42,24 @@
 
                                 </SwipeItems>
                             </SwipeView.LeftItems>
+                            <Grid>
                             <Frame BackgroundColor="Aqua" Margin="5" CornerRadius="10" HasShadow="True"
                                    BorderColor="LightBlue">
                                 <StackLayout Orientation="Vertical">
                                     <Label Text="{Binding title}"
                                            d:Text="{Binding .}"
-                                           LineBreakMode="NoWrap"
                                            FontSize="Large" />
-                                    <Label Text="{Binding content}"
+                                    <Expander IsExpanded="False" >
+                                        <Expander.Header>
+                                            <Label Text="Show me more..."
+                                                   FontAttributes="Bold"
+                                                   TextColor="DodgerBlue"
+                                                   FontSize="Medium" />
+                                        </Expander.Header>
+                                        <Label Text="{Binding content}"
                                            d:Text="{Binding .}"
-                                           LineBreakMode="NoWrap"
                                            FontSize="Medium" />
+                                    </Expander>
                                     <StackLayout Orientation="Horizontal">
                                         <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                             <Label Text="created:" />
@@ -71,6 +78,7 @@
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
+                            </Grid>
                         </SwipeView>
 
                     </DataTemplate>

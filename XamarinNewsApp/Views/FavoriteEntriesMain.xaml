@@ -21,18 +21,26 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
+                        <Grid>
                             <Frame BackgroundColor="Aqua" Margin="5" CornerRadius="10" HasShadow="True"
                                    BorderColor="LightBlue">
                                 <StackLayout Orientation="Vertical">
                                     <Label Text="{Binding title}"
                                            d:Text="{Binding .}"
-                                           LineBreakMode="NoWrap"
+                                           
                                            FontSize="Large" />
+                                <Expander IsExpanded="False" >
+                                    <Expander.Header>
+                                        <Label Text="Show me more..."
+                                               FontAttributes="Bold"
+                                               TextColor="DodgerBlue"
+                                               FontSize="Medium" />
+                                    </Expander.Header>
                                     <Label Text="{Binding content}"
                                            d:Text="{Binding .}"
-                                           LineBreakMode="NoWrap"
                                            FontSize="Medium" />
-                                    <StackLayout Orientation="Horizontal">
+                                </Expander>
+                                <StackLayout Orientation="Horizontal">
                                         <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                             <Label Text="created:" />
                                             <Label Text="{Binding createdAt}"
@@ -50,7 +58,7 @@
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
-                        
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

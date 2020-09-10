@@ -22,19 +22,19 @@ namespace NewsApp.Views
                 eventSubscribed = true;
                 viewModel.APIerror += async () =>
                 {
-                    await DisplayAlert("Error occured!",
+                    await DisplayAlert("An An error occured!",
                         "Cannot retrieve data from API." + Environment.NewLine + "Getting data from Json-backup",
                         "OK");
                 };
                 viewModel.IdIsAbsent += async () =>
                 {
-                    await DisplayAlert("Error occured!",
+                    await DisplayAlert("An error occured!",
                         "Id of this news-post is absent." + Environment.NewLine + "Could not process.",
                         "OK");
                 };
                 viewModel.ErrorRetrieving += async () =>
                 {
-                    await DisplayAlert("Error occured!",
+                    await DisplayAlert("An error occured!",
                         "Cannot retrieve news data." + Environment.NewLine + "Restart app or inform developers.",
                         "OK");
                 };
