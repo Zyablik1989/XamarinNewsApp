@@ -1,11 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="NewsApp.Views.EntriesMain"
-             BackgroundColor="LightGray">
+             BackgroundColor="LightGray"
+             x:Name="EntryPage"
+             >
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=Default}" Command="{Binding LoadEntriesCommand}">
             <CollectionView x:Name="cvEntries" ItemsSource="{Binding Entries}">
@@ -17,40 +20,49 @@
                 </d:CollectionView.ItemsSource>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="Aqua" Margin="5"  CornerRadius="10" HasShadow="True" BorderColor="LightBlue">
-                            <StackLayout Orientation="Vertical">
-                                <Label Text="{Binding title}"
+
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="DELETE"
+
+                                               Command="{Binding Source={x:Reference EntryPage}, Path=BindingContext.DeleteEntryCommand}"
+                                               CommandParameter="{Binding .}"
+                                               BackgroundColor="White" />
+                                    
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame BackgroundColor="Aqua" Margin="5" CornerRadius="10" HasShadow="True"
+                                   BorderColor="LightBlue">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding title}"
                                            d:Text="{Binding .}"
                                            LineBreakMode="NoWrap"
-                                           FontSize="Large"
-                                    />
-                                <Label Text="{Binding content}"
+                                           FontSize="Large" />
+                                    <Label Text="{Binding content}"
                                            d:Text="{Binding .}"
                                            LineBreakMode="NoWrap"
-                                           FontSize="Medium"
-                                    />
-                                <StackLayout Orientation="Horizontal" >
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                        <Label Text="created:"/>
-                                        <Label Text="{Binding createdAt}"
-                                                   d:Text="{Binding .}"
+                                           FontSize="Medium" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                            <Label Text="created:" />
+                                            <Label Text="{Binding createdAt}"
+                                                   d:Text="00.00.00"
                                                    LineBreakMode="NoWrap"
-                                                   FontSize="Small"
-                                            />
-                                    </StackLayout>
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
-                                        <Label Text="updated:"/>
-                                        <Label Text="{Binding updatedAt}"
-                                               d:Text="{Binding .}"
-                                               LineBreakMode="NoWrap"
-                                               FontSize="Small"
-                                        />
+                                                   FontSize="Small" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
+                                            <Label Text="updated:" />
+                                            <Label Text="{Binding updatedAt}"
+                                                   d:Text="99.99.99"
+                                                   LineBreakMode="NoWrap"
+                                                   FontSize="Small" />
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
+                            </Frame>
+                        </SwipeView>
 
-
-                            </StackLayout>
-                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

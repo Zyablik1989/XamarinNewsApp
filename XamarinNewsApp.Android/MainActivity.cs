@@ -19,6 +19,9 @@ namespace XamarinNewsApp.Droid
 
             base.OnCreate(savedInstanceState);
 
+            //Adding experimental controls
+            Xamarin.Forms.Forms.SetFlags(new string[] {"AppTheme_Experimental", "CarouselView_Experimental", "Expander_Experimental", "Markup_Experimental", "MediaElement_Experimental",
+                "RadioButton_Experimental", "Shapes_Experimental", "Shell_UWP_Experimental", "SwipeView_Experimental"});
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
