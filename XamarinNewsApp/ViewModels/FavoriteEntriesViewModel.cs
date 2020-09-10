@@ -11,10 +11,10 @@ using Entry = NewsApp.Models.Entry;
 
 namespace NewsApp.ViewModels
 {
-    internal class EntriesViewModel : BaseViewModel
+    internal class FavoriteEntriesViewModel : BaseViewModel
     {
         //events
-        public Action APIerror, IdIsAbsent, ErrorRetrieving, Favorited;
+        public Action APIerror, IdIsAbsent, ErrorRetrieving;
 
         /// <summary>
         /// entries we are working with
@@ -26,66 +26,12 @@ namespace NewsApp.ViewModels
         /// </summary>
         public Command LoadEntriesCommand { get; set; }
 
-        /// <summary>
-        /// Delete chosen entry
-        /// </summary>
-        public ICommand DeleteEntryCommand { get; set; }
 
-        /// <summary>
-        /// Delete chosen entry
-        /// </summary>
-        public ICommand FavorEntryCommand { get; set; }
-
-
-        public EntriesViewModel()
+        public FavoriteEntriesViewModel()
         {
-            Title = "News";
+            Title = "Favorites";
             Entries = new ObservableCollection<Entry>();
             LoadEntriesCommand = new Command(async () => await ExecuteLoadEntriesCommand());
-            DeleteEntryCommand = new Command<Entry>(async x => await ExecuteDeleteEntryCommand(x));
-            FavorEntryCommand = new Command<Entry>(async x => await ExecuteFavorEntryCommand(x));
-        }
-
-        /// <summary>
-        ///     Delete selected news entry
-        /// </summary>
-        /// <returns></returns>
-        private async Task ExecuteDeleteEntryCommand(Entry entry)
-        {
-            if (entry.id == null)
-            {
-                IdIsAbsent?.Invoke();
-                return;
-            }
-
-            var id = (long) entry.id;
-            if (!UserPreferences.Current.MarkedDownEntries.Contains(id))
-            {
-                UserPreferences.Current.MarkedDownEntries.Add(id);
-                Entries.Remove(Entries.FirstOrDefault(x => x.id == id));
-            }
-
-        }
-
-        /// <summary>
-        ///    Add selected news entry to favorites
-        /// </summary>
-        /// <returns></returns>
-        private async Task ExecuteFavorEntryCommand(Entry entry)
-        {
-            if (entry.id == null)
-            {
-                IdIsAbsent?.Invoke();
-                return;
-            }
-
-            var id = (long)entry.id;
-            if (!UserPreferences.Current.FavoriteEntries.Contains(id))
-            {
-                UserPreferences.Current.FavoriteEntries.Add(id);
-                Favorited?.Invoke();
-            }
-
         }
 
         /// <summary>
@@ -105,6 +51,25 @@ namespace NewsApp.ViewModels
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Filter favorite entries
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <returns></returns>
+        private bool FilterFavoritesEntries(Entry entry)
+        {
+            if (entry.id == null)
+            {
+                return false;
+            }
+            if (UserPreferences.Current.FavoriteEntries.Contains((long)entry.id))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -131,11 +96,11 @@ namespace NewsApp.ViewModels
                     APIerror?.Invoke();
                     var BackupEntries = JsonConvert.DeserializeObject<List<Entry>>(Resource.Json);
 
-                    foreach (var entry in BackupEntries.Where(FilterMarkedDownEntries)) 
+                    foreach (var entry in BackupEntries.Where(FilterMarkedDownEntries).Where(FilterFavoritesEntries)) 
                         Entries.Add(entry);
                 }
 
-                foreach (var entry in ApiEntries.Where(FilterMarkedDownEntries))
+                foreach (var entry in ApiEntries.Where(FilterMarkedDownEntries).Where(FilterFavoritesEntries))
                     Entries.Add(entry);
             }
             catch (Exception)

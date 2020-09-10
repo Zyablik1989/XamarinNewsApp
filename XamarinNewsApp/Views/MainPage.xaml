@@ -6,7 +6,8 @@
              xmlns:views="clr-namespace:NewsApp.Views"
              mc:Ignorable="d"
              x:Class="NewsApp.Views.MainPage"
-             >
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             android:TabbedPage.IsSwipePagingEnabled="false" >
     
     <TabbedPage.Children >
         <NavigationPage Title="News">
@@ -14,7 +15,10 @@
                 <views:EntriesMain/>
             </x:Arguments>
         </NavigationPage>
-
-        <!--Place for "favorite" page-->
+        <NavigationPage Title="Favorites">
+            <x:Arguments>
+                <views:FavoriteEntriesMain/>
+            </x:Arguments>
+        </NavigationPage>
     </TabbedPage.Children>
 </TabbedPage>

@@ -29,6 +29,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\FavoriteEntriesMain.xaml.cs">
+      <DependentUpon>FavoriteEntriesMain.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

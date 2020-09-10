@@ -13,5 +13,6 @@ namespace NewsApp.Managers
         public static UserPreferences Current => _instance ?? (_instance = new UserPreferences());
 
         public List<long> MarkedDownEntries = new List<long>();
+        public List<long> FavoriteEntries = new List<long>();
     }
 }

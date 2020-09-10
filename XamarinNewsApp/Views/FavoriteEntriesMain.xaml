@@ -5,9 +5,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="NewsApp.Views.EntriesMain"
+             x:Class="NewsApp.Views.FavoriteEntriesMain"
              BackgroundColor="LightGray"
-             x:Name="EntryPage"
+             x:Name="FavoriteEntryPage"
              >
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=Default}" Command="{Binding LoadEntriesCommand}">
@@ -21,27 +21,6 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItem Text="DELETE"
-
-                                               Command="{Binding Source={x:Reference EntryPage}, Path=BindingContext.DeleteEntryCommand}"
-                                               CommandParameter="{Binding .}"
-                                               BackgroundColor="LightBlue" />
-                                    
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <SwipeView.LeftItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItem Text="FAVORITE"
-
-                                               Command="{Binding Source={x:Reference EntryPage}, Path=BindingContext.FavorEntryCommand}"
-                                               CommandParameter="{Binding .}"
-                                               BackgroundColor="Pink" />
-
-                                </SwipeItems>
-                            </SwipeView.LeftItems>
                             <Frame BackgroundColor="Aqua" Margin="5" CornerRadius="10" HasShadow="True"
                                    BorderColor="LightBlue">
                                 <StackLayout Orientation="Vertical">
@@ -71,8 +50,7 @@
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
-                        </SwipeView>
-
+                        
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

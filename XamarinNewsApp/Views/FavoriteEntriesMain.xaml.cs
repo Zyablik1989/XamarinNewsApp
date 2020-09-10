@@ -6,15 +6,15 @@ using Xamarin.Forms.Xaml;
 namespace NewsApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EntriesMain : ContentPage
+    public partial class FavoriteEntriesMain : ContentPage
     {
         private readonly bool eventSubscribed;
-        private readonly EntriesViewModel viewModel;
+        private readonly FavoriteEntriesViewModel viewModel;
 
-        public EntriesMain()
+        public FavoriteEntriesMain()
         {
             InitializeComponent();
-            BindingContext = viewModel = new EntriesViewModel();
+            BindingContext = viewModel = new FavoriteEntriesViewModel();
             if (viewModel.Entries.Count == 0)
                 viewModel.IsRefreshing = true;
             if (!eventSubscribed)
@@ -26,27 +26,21 @@ namespace NewsApp.Views
                         "Cannot retrieve data from API." + Environment.NewLine + "Getting data from Json-backup",
                         "OK");
                 };
-                viewModel.IdIsAbsent += async () =>
-                {
-                    await DisplayAlert("Error occured!",
-                        "Id of this news-post is absent." + Environment.NewLine + "Could not process.",
-                        "OK");
-                };
                 viewModel.ErrorRetrieving += async () =>
                 {
                     await DisplayAlert("Error occured!",
                         "Cannot retrieve news data." + Environment.NewLine + "Restart app or inform developers.",
                         "OK");
                 };
-                viewModel.Favorited += async () =>
-                {
-                    await DisplayAlert("Success",
-                        "You've added this news-post into your favorites list.",
-                        "OK");
-                };
-
-
             }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (viewModel.Entries.Count == 0)
+                viewModel.IsRefreshing = true;
         }
     }
 }
