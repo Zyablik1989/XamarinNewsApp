@@ -35,5 +35,20 @@ namespace NewsApp.ViewModels
 
         #endregion
 
+        bool isRefreshing = false;
+
+        //Is an RefreshView is busy right now
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set { SetProperty(ref isRefreshing, value); }
+        }
+
+        string title = string.Empty;
+        public string Title
+        {
+            get { return title; }
+            set { SetProperty(ref title, value); }
+        }
     }
 }

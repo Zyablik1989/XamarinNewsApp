@@ -4,12 +4,29 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="NewsApp.Views.EntriesMain">
+             x:Class="NewsApp.Views.EntriesMain"
+             BackgroundColor="LightGray">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=Default}" Command="{Binding LoadEntriesCommand}">
+            <CollectionView x:Name="cvEntries">
+                <d:CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>News1</x:String>
+                        <x:String>News2</x:String>
+                    </x:Array>
+                </d:CollectionView.ItemsSource>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="Aqua" Margin="5"  CornerRadius="10" HasShadow="True" BorderColor="LightBlue">
+                        <Label Text="{Binding title}"
+                               d:Text="{Binding .}" 
+                               LineBreakMode="NoWrap"
+                               FontSize="Small"
+                               ></Label>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>
