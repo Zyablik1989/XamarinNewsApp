@@ -20,5 +20,13 @@ namespace NewsApp.Views
             InitializeComponent();
             BindingContext = viewModel = new EntriesViewModel();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (viewModel.Entries.Count == 0)
+                viewModel.IsRefreshing = true;
+        }
     }
 }

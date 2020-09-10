@@ -8,7 +8,7 @@
              BackgroundColor="LightGray">
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=Default}" Command="{Binding LoadEntriesCommand}">
-            <CollectionView x:Name="cvEntries">
+            <CollectionView x:Name="cvEntries" ItemsSource="{Binding Entries}">
                 <d:CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>News1</x:String>
@@ -18,11 +18,38 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BackgroundColor="Aqua" Margin="5"  CornerRadius="10" HasShadow="True" BorderColor="LightBlue">
-                        <Label Text="{Binding title}"
-                               d:Text="{Binding .}" 
-                               LineBreakMode="NoWrap"
-                               FontSize="Small"
-                               ></Label>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding title}"
+                                           d:Text="{Binding .}"
+                                           LineBreakMode="NoWrap"
+                                           FontSize="Large"
+                                    />
+                                <Label Text="{Binding content}"
+                                           d:Text="{Binding .}"
+                                           LineBreakMode="NoWrap"
+                                           FontSize="Medium"
+                                    />
+                                <StackLayout Orientation="Horizontal" >
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                        <Label Text="created:"/>
+                                        <Label Text="{Binding createdAt}"
+                                                   d:Text="{Binding .}"
+                                                   LineBreakMode="NoWrap"
+                                                   FontSize="Small"
+                                            />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
+                                        <Label Text="updated:"/>
+                                        <Label Text="{Binding updatedAt}"
+                                               d:Text="{Binding .}"
+                                               LineBreakMode="NoWrap"
+                                               FontSize="Small"
+                                        />
+                                    </StackLayout>
+                                </StackLayout>
+
+
+                            </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

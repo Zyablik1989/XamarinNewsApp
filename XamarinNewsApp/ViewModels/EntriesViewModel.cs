@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Entry = NewsApp.Models.Entry;
+using NewsApp.Managers;
+using Newtonsoft.Json;
 
 namespace NewsApp.ViewModels
 {
@@ -32,7 +34,26 @@ namespace NewsApp.ViewModels
 
             try
             {
-                //LOADING ENTRIES HERE
+                RestSharpManager.Start();
+                RestSharpManager.Current.BaseUrl = @"http://frontappapi.dock7.66bit.ru";
+
+                foreach (var entry in RestSharpManager.Current.RetrieveEntries())
+                {
+                    Entries.Add(entry);
+                }
+
+                if (Entries.Count == 0
+                    ||
+                    !RestSharpManager.Current.IsLastRequestWasSuccessful)
+                {
+                    var BackupEntries = JsonConvert.DeserializeObject<List<Entry>>(Resource.Json);
+
+                    foreach (var entry in BackupEntries)
+                    {
+                        Entries.Add(entry);
+                    }
+                }
+
             }
             catch (Exception e)
             {
